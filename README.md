@@ -7,7 +7,7 @@ This is a starter kit for creating Express.js applications with TypeScript. It p
 Install the package globally using npm:
 
 ```bash
-npm install -g express-typescript-templates
+npm install  express-typescript-templates
 ```
 
 ## Usage
