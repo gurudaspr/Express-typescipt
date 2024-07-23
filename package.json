@@ -8,7 +8,11 @@
   "scripts": {
     "postinstall": "node postinstall.js"
   },
-  "keywords": ["express", "typescript", "template"],
+  "keywords": [
+    "express",
+    "typescript",
+    "template"
+  ],
   "author": "Gurudas p r <gurudaspranavam007@gmail.com>",
   "license": "ISC",
   "dependencies": {
@@ -24,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/gurudaspr/Express-typescipt"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/gurudaspr/Express-typescipt/issues"
   },
-  "homepage": ""
+  "homepage": "https://github.com/gurudaspr/Express-typescipt"
 }
