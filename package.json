@@ -1,0 +1,33 @@
+{
+  "name": "express-typescript-templates",
+  "version": "1.1.9",
+  "description": "A template for creating Express applications with TypeScript.",
+  "bin": {
+    "express-setup-ts": "cli.js"
+  },
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
+  "keywords": ["express", "typescript", "template"],
+  "author": "Gurudas p r <gurudaspranavam007@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "latest",
+    "nodemon": "latest",
+    "dotenv": "latest"
+  },
+  "devDependencies": {
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
