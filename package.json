@@ -1,12 +1,13 @@
 {
   "name": "express-typescript-templates",
-  "version": "1.1.9",
+  "version": "1.2.3",
   "description": "A template for creating Express applications with TypeScript.",
+  "files": ["cli.js"],
   "bin": {
     "express-setup-ts": "cli.js"
   },
   "scripts": {
-    "postinstall": "node postinstall.js",
+    
     "build": "tsc --build",
     "start": "npx nodemon ./dist/src/server.js",
     "server": "npx nodemon ./src/server.ts"
