@@ -1,45 +1,96 @@
-#!/usr/bin/env node
-
-const fs = require('fs');
-const path = require('path');
+const { execSync } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
 const projectDir = process.cwd();
-const packageJsonPath = path.join(projectDir, 'package.json');
+const packageJsonPath = path.join(projectDir, "package.json");
 
-if (fs.existsSync(packageJsonPath)) {
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+console.log("Running postinstall script...");
 
-  // Add dependencies and devDependencies
-  packageJson.dependencies = packageJson.dependencies || {};
-  packageJson.devDependencies = packageJson.devDependencies || {};
-
-  packageJson.dependencies = {
-    ...packageJson.dependencies,
-    express: 'latest',
-    nodemon: 'latest',
-    dotenv: 'latest'
-  };
-
-  packageJson.devDependencies = {
-    ...packageJson.devDependencies,
-    '@types/express': 'latest',
-    '@types/node': 'latest',
-    'ts-node': 'latest',
-    typescript: 'latest'
-  };
-
-  // Add scripts
-  packageJson.scripts = packageJson.scripts || {};
-  packageJson.scripts = {
-    ...packageJson.scripts,
-    build: 'tsc --build',
-    start: 'nodemon ./dist/server.js',
-    server: 'nodemon ./src/server.ts'
-  };
-
-  // Write updated package.json
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  console.log('Updated package.json with required dependencies and scripts.');
-} else {
-  console.error('package.json not found.');
+// Ensure TypeScript is installed
+try {
+  execSync("npx tsc --version", { stdio: "inherit" });
+} catch (error) {
+  console.log("TypeScript is not installed. Installing TypeScript...");
+  execSync("npm install typescript --save-dev", { stdio: "inherit" });
 }
+
+// Ensure TypeScript is initialized
+if (!fs.existsSync(path.join(projectDir, "tsconfig.json"))) {
+  execSync("npx tsc --init", { stdio: "inherit" });
+}
+
+// Ensure necessary directories exist
+const directories = [
+  "src",
+  "src/controllers",
+  "src/middlewares",
+  "src/models",
+  "src/routes",
+  "src/utils",
+  "dist",
+];
+
+directories.forEach((dir) => {
+  const dirPath = path.join(projectDir, dir);
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+    fs.writeFileSync(path.join(dirPath, ".gitkeep"), "");
+  }
+});
+
+// Ensure necessary files exist
+const files = {
+  ".env": `
+# Environment variables
+PORT=3000
+  `,
+  ".gitignore": `
+node_modules
+dist
+.env
+  `,
+  "README.md": `
+# Express TypeScript Template
+
+This is a template for creating an Express application with TypeScript.
+  `,
+  "src/server.ts": `
+import express from 'express';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
+app.listen(port, () => {
+  console.log(\`Server is running on port \${port}\`);
+});
+  `,
+  "tsconfig.json": `{
+    "compilerOptions": {
+      "target": "es2016",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true,
+      "strict": true
+    }
+  }`,
+};
+
+Object.keys(files).forEach((filePath) => {
+  const fullPath = path.join(projectDir, filePath);
+  if (!fs.existsSync(fullPath)) {
+    fs.writeFileSync(fullPath, files[filePath].trim());
+  }
+});
+
+console.log("Postinstall script completed.");

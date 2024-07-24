@@ -6,10 +6,7 @@
     "express-setup-ts": "cli.js"
   },
   "scripts": {
-    "postinstall": "node postinstall.js",
-    "build": "tsc --build",
-    "start": "npx nodemon ./dist/src/server.js",
-    "server": "npx nodemon ./src/server.ts"
+    "postinstall": "node postinstall.js"
   },
   "keywords": [
     "express",
@@ -19,15 +16,15 @@
   "author": "Gurudas p r <gurudaspranavam007@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "latest",
     "express": "latest",
-    "nodemon": "latest"
+    "nodemon": "latest",
+    "dotenv": "latest"
   },
   "devDependencies": {
     "@types/express": "latest",
     "@types/node": "latest",
     "ts-node": "latest",
-    "typescript": "^5.5.4"
+    "typescript": "latest"
   },
   "repository": {
     "type": "git",
