@@ -1,6 +1,6 @@
 {
   "name": "express-ts-setup",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A template for creating Express applications with TypeScript.",
   "files": ["cli.js"],
   "bin": {

@@ -1,4 +1,4 @@
-# express-ts-setup
+# Express-ts-setup
 
 This is a starter kit for creating Express.js applications with TypeScript. It provides a quick setup process to get your TypeScript-based Express app up and running.
 
