@@ -1,13 +1,12 @@
 {
-  "name": "express-typescript-templates",
-  "version": "1.2.4",
+  "name": "express-ts-setup",
+  "version": "1.1.0",
   "description": "A template for creating Express applications with TypeScript.",
   "files": ["cli.js"],
   "bin": {
-    "express-setup-ts": "cli.js"
+    "express-ts": "cli.js"
   },
-  "scripts": {
-    
+  "scripts": { 
     "build": "tsc --build",
     "start": "npx nodemon ./dist/src/server.js",
     "server": "npx nodemon ./src/server.ts"
@@ -19,23 +18,8 @@
   ],
   "author": "Gurudas p r <gurudaspranavam007@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "dotenv": "latest",
-    "express": "latest",
-    "nodemon": "latest"
-  },
-  "devDependencies": {
-    "@types/express": "latest",
-    "@types/node": "latest",
-    "ts-node": "latest",
-    "typescript": "^5.5.4"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gurudaspr/Express-typescipt"
-  },
-  "bugs": {
-    "url": "https://github.com/gurudaspr/Express-typescipt/issues"
-  },
-  "homepage": "https://github.com/gurudaspr/Express-typescipt"
+  }
 }
