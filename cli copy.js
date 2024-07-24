@@ -1,41 +1,41 @@
 #!/usr/bin/env node
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 const projectDir = process.cwd();
-const packageJsonPath = path.join(projectDir, "package.json");
+const packageJsonPath = path.join(projectDir, 'package.json');
 
-console.log("Setting up your Express TypeScript project...");
+console.log('Setting up your Express TypeScript project...');
 
 // Define directories and files to create
 const directories = [
-  "src",
-  "src/controllers",
-  "src/middlewares",
-  "src/models",
-  "src/routes",
-  "src/utils",
-  "dist",
+  'src',
+  'src/controllers',
+  'src/middlewares',
+  'src/models',
+  'src/routes',
+  'src/utils',
+  'dist'
 ];
 
 const files = {
-  ".env": `
+  '.env': `
 # Environment variables
 PORT=3000
   `,
-  ".gitignore": `
+  '.gitignore': `
 node_modules
 dist
 .env
   `,
-  "README.md": `
+  'README.md': `
 # Express TypeScript Template
 
 This is a template for creating an Express application with TypeScript.
   `,
-  "src/server.ts": `
+  'src/server.ts': `
 import express from 'express';
 import dotenv from 'dotenv';
 
@@ -52,7 +52,7 @@ app.listen(port, () => {
   console.log(\`Server is running on port \${port}\`);
 });
   `,
-  "tsconfig.json": `{
+  'tsconfig.json': `{
     "compilerOptions": {
       "target": "es2016",
       "module": "commonjs",
@@ -63,20 +63,20 @@ app.listen(port, () => {
       "skipLibCheck": true,
       "strict": true
     }
-  }`,
+  }`
 };
 
 // Create directories
-directories.forEach((dir) => {
+directories.forEach(dir => {
   const dirPath = path.join(projectDir, dir);
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
-    fs.writeFileSync(path.join(dirPath, ".gitkeep"), "");
+    fs.writeFileSync(path.join(dirPath, '.gitkeep'), '');
   }
 });
 
 // Create files
-Object.keys(files).forEach((filePath) => {
+Object.keys(files).forEach(filePath => {
   const fullPath = path.join(projectDir, filePath);
   if (!fs.existsSync(fullPath)) {
     fs.writeFileSync(fullPath, files[filePath].trim());
@@ -84,34 +84,26 @@ Object.keys(files).forEach((filePath) => {
 });
 
 // Run tsc --init to generate tsconfig.json if it doesn't exist
-if (!fs.existsSync(path.join(projectDir, "tsconfig.json"))) {
-  execSync("npx tsc --init", { stdio: "inherit" });
+if (!fs.existsSync(path.join(projectDir, 'tsconfig.json'))) {
+  execSync('npx tsc --init', { stdio: 'inherit' });
 }
 
 // Modify the generated tsconfig.json file
-const tsconfigPath = path.join(projectDir, "tsconfig.json");
+const tsconfigPath = path.join(projectDir, 'tsconfig.json');
 if (fs.existsSync(tsconfigPath)) {
-  let tsconfig = fs.readFileSync(tsconfigPath, "utf8");
-  tsconfig = tsconfig.replace(
-    /"strict": true,/,
-    `"strict": true,
+  let tsconfig = fs.readFileSync(tsconfigPath, 'utf8');
+  tsconfig = tsconfig.replace(/"strict": true,/, `"strict": true,
   "skipLibCheck": true,
   "esModuleInterop": true,
   "forceConsistentCasingInFileNames": true,
   "rootDir": "./",
-  "outDir": "./dist",`
-  );
+  "outDir": "./dist",`);
   fs.writeFileSync(tsconfigPath, tsconfig);
 }
 
-// Function to get the latest version of a package
-const getLatestVersion = (packageName) => {
-  return execSync(`npm show ${packageName} version`).toString().trim();
-};
-
 // Update package.json with dependencies, devDependencies, and scripts
 if (fs.existsSync(packageJsonPath)) {
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
   // Add dependencies and devDependencies
   packageJson.dependencies = packageJson.dependencies || {};
@@ -119,37 +111,33 @@ if (fs.existsSync(packageJsonPath)) {
 
   packageJson.dependencies = {
     ...packageJson.dependencies,
-    express: getLatestVersion("express"),
-    nodemon: getLatestVersion("nodemon"),
-    dotenv: getLatestVersion("dotenv"),
+    express: 'latest',
+    nodemon: 'latest',
+    dotenv: 'latest'
   };
 
   packageJson.devDependencies = {
     ...packageJson.devDependencies,
-    "@types/express": getLatestVersion("@types/express"),
-    "@types/node": getLatestVersion("@types/node"),
-    "ts-node": getLatestVersion("ts-node"),
-    typescript: getLatestVersion("typescript"),
+    '@types/express': 'latest',
+    '@types/node': 'latest',
+    'ts-node': 'latest',
+    typescript: 'latest'
   };
 
   // Add scripts
   packageJson.scripts = packageJson.scripts || {};
   packageJson.scripts = {
     ...packageJson.scripts,
-    build: "tsc --build",
-    start: "npx nodemon ./dist/src/server.js",
-    server: "npx nodemon ./src/server.ts",
+    build: 'tsc --build',
+    start: 'nodemon ./dist/src/server.js',
+    server: 'nodemon ./src/server.ts'
   };
 
   // Write updated package.json
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  console.log("Updated package.json with required dependencies and scripts.");
-
-  // Install the updated dependencies
-  execSync("npm install", { stdio: "inherit" });
-  console.log("Installed the latest versions of dependencies.");
+  console.log('Updated package.json with required dependencies and scripts.');
 } else {
-  console.error("package.json not found.");
+  console.error('package.json not found.');
 }
 
-console.log("Project structure created successfully.");
+console.log('Project structure created successfully.');
