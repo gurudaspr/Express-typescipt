@@ -1,4 +1,4 @@
-# express-typescript-templates
+# express-ts-setup
 
 This is a starter kit for creating Express.js applications with TypeScript. It provides a quick setup process to get your TypeScript-based Express app up and running.
 
@@ -7,7 +7,7 @@ This is a starter kit for creating Express.js applications with TypeScript. It p
 Install the package globally using npm:
 
 ```bash
-npm install  express-typescript-templates
+npm install express-ts-setup
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ After installation, follow these steps to set up your Express TypeScript project
 1. Run the setup command:
 
 ```bash
-npx express-setup-ts
+npx express-ts
 ```
 
 This command will create the necessary files and folder structure for your TypeScript Express app.

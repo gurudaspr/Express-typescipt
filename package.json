@@ -7,7 +7,6 @@
     "express-setup-ts": "cli.js"
   },
   "scripts": {
-    
     "build": "tsc --build",
     "start": "npx nodemon ./dist/src/server.js",
     "server": "npx nodemon ./src/server.ts"
